@@ -1,0 +1,26 @@
+
+This program converts data from DSS-28 Goldstone antenna to psrfits.
+
+DSS-28 data is typically written as 8 separate files containing dynamic       
+spectra as 8-bit values. The files have names iBOBX.spec, where X=0-7.        
+Each iBOB may drops samples (complete spectra) occasionally. This program     
+assumes that dropped samples are fixed/filled in.                             
+
+There are also iBOBX.idx files. Each of these contains 32-bit integers        
+that are sample sequence numbers. If there is a jump by 2 or more in the      
+integer sequence, this means that a sample was dropped. This program does     
+not read the .idx files, but they are necessary for filling in dropped        
+samples.                                                                      
+                                                                              
+This program depends on an info.txt file in the same directory as the .spec   
+and .idx files. The info.txt file contains basic pointing information like    
+the source name and coordinates, and channel center frequencies for each      
+iBOB.                                                                         
+
+One or more iBOBs may be turned off. If data from one or more iBOBs doesn't   
+exist, the weights of the respective channels in the output psrfits file      
+are set to 0.0.                                                               
+
+If the user decides to ignore data from one or more iBOBs even if the data
+exists, the channel weights for channels from the ignored iBOB will be set to 
+0.0.                
